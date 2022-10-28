@@ -1,11 +1,13 @@
-import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.extension.AfterAllCallback
 import org.junit.jupiter.api.extension.AfterEachCallback
 import org.junit.jupiter.api.extension.ExtensionContext
 import java.io.File
 
-class TempDirectoryExtension: AfterEachCallback {
 
-    val tempDirectory = File("test")
+object TempDirectoryExtension : AfterEachCallback, AfterAllCallback {
+
+
+    private val tempDirectory = File("test")
 
     init {
         tempDirectory.mkdir()
@@ -16,4 +18,8 @@ class TempDirectoryExtension: AfterEachCallback {
     }
 
     fun tempDirectoryPath(): String = tempDirectory.path
+
+    override fun afterAll(context: ExtensionContext?) {
+        tempDirectory.delete()
+    }
 }

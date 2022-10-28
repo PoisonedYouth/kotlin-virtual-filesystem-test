@@ -10,8 +10,11 @@ import java.util.zip.ZipInputStream
 
 internal class FileServiceV1Test {
 
-    @RegisterExtension
-    private val tempDirectoryExtension = TempDirectoryExtension()
+    companion object {
+        @JvmStatic
+        @RegisterExtension
+        private val tempDirectoryExtension = TempDirectoryExtension
+    }
 
     @Test
     fun `createZipFile returns empty zip files for no content specified`() {
