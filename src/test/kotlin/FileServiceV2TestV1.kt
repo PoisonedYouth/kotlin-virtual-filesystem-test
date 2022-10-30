@@ -11,11 +11,8 @@ import java.nio.file.Path
 
 internal class FileServiceV2TestV1 {
 
-    companion object {
-        @JvmStatic
-        @RegisterExtension
-        private val tempDirectoryExtension = TempDirectoryExtensionV3
-    }
+    @RegisterExtension
+    private val tempDirectoryExtension = TempDirectoryExtensionV3()
 
     @Test
     fun `createZipFile returns empty zip files for no content specified`() {
@@ -50,7 +47,7 @@ internal class FileServiceV2TestV1 {
         // given
         val file1 = tempDirectoryExtension.tempDirectoryPath().resolve("file1.txt")
         Files.writeString(file1, "Hello World!")
-        val file2 = tempDirectoryExtension.tempDirectoryPath().resolve( "file2.txt")
+        val file2 = tempDirectoryExtension.tempDirectoryPath().resolve("file2.txt")
         Files.writeString(file2, "Hello New World!")
         val zipFile = tempDirectoryExtension.tempDirectoryPath().resolve("test.zip")
 

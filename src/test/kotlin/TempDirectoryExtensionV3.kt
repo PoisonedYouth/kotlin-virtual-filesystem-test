@@ -7,7 +7,7 @@ import java.nio.file.Path
 import java.util.*
 
 
-object TempDirectoryExtensionV3 : BeforeEachCallback {
+class TempDirectoryExtensionV3 : BeforeEachCallback {
 
     private val fileSystem: FileSystem = Jimfs.newFileSystem()
     private lateinit var tempDirectory: Path
