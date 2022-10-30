@@ -5,6 +5,10 @@ import io.kotest.matchers.should
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.StandardOpenOption
+
 
 internal class FileServiceV1TestV3 {
 
@@ -28,7 +32,7 @@ internal class FileServiceV1TestV3 {
     fun `createZipFile returns zip with single file`() {
         // given
         val file = File(tempDirectory.path + "/file1.txt")
-        file.writeText("Hello World!")
+        createLargeFile(file.toPath())
         val filename = File(tempDirectory.path + "/test.zip")
 
         // when
@@ -43,9 +47,9 @@ internal class FileServiceV1TestV3 {
     fun `createZipFile returns zip with multiple files`() {
         // given
         val file1 = File(tempDirectory.path + "/file1.txt")
-        file1.writeText("Hello World!")
+        createLargeFile(file1.toPath())
         val file2 = File(tempDirectory.path + "/file2.txt")
-        file2.writeText("Hello New World!")
+        createLargeFile(file2.toPath())
         val filename = File(tempDirectory.path + "/test.zip")
 
         // when
@@ -55,4 +59,12 @@ internal class FileServiceV1TestV3 {
         actual should exist()
         listFilesInZipFile(actual.path) shouldContainOnly listOf("file1.txt", "file2.txt")
     }
+}
+
+fun createLargeFile(path: Path): Path{
+    Files.createFile(path)
+    repeat(1000){
+        Files.writeString(path, "This is a large file", StandardOpenOption.APPEND)
+    }
+    return path
 }

@@ -5,8 +5,6 @@ import io.kotest.matchers.should
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.RegisterExtension
 import java.io.File
-import java.io.FileInputStream
-import java.util.zip.ZipInputStream
 
 internal class FileServiceV1TestV2 {
 
@@ -33,7 +31,7 @@ internal class FileServiceV1TestV2 {
     fun `createZipFile returns zip with single file`() {
         // given
         val file = File(tempDirectoryExtension.tempDirectoryPath() + "/file1.txt")
-        file.writeText("Hello World!")
+        createLargeFile(file.toPath())
         val filename = File(tempDirectoryExtension.tempDirectoryPath() + "/test.zip")
 
         // when
@@ -48,9 +46,9 @@ internal class FileServiceV1TestV2 {
     fun `createZipFile returns zip with multiple files`() {
         // given
         val file1 = File(tempDirectoryExtension.tempDirectoryPath() + "/file1.txt")
-        file1.writeText("Hello World!")
+        createLargeFile(file1.toPath())
         val file2 = File(tempDirectoryExtension.tempDirectoryPath() + "/file2.txt")
-        file2.writeText("Hello New World!")
+        createLargeFile(file2.toPath())
         val filename = File(tempDirectoryExtension.tempDirectoryPath() + "/test.zip")
 
         // when

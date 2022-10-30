@@ -31,7 +31,7 @@ internal class FileServiceV2TestV1 {
     fun `createZipFile returns zip with single file`() {
         // given
         val file = tempDirectoryExtension.tempDirectoryPath().resolve("file1.txt")
-        Files.writeString(file, "Hello World!")
+        createLargeFile(file)
         val zipFile = tempDirectoryExtension.tempDirectoryPath().resolve("test.zip")
 
         // when
@@ -46,9 +46,9 @@ internal class FileServiceV2TestV1 {
     fun `createZipFile returns zip with multiple files`() {
         // given
         val file1 = tempDirectoryExtension.tempDirectoryPath().resolve("file1.txt")
-        Files.writeString(file1, "Hello World!")
+        createLargeFile(file1)
         val file2 = tempDirectoryExtension.tempDirectoryPath().resolve("file2.txt")
-        Files.writeString(file2, "Hello New World!")
+        createLargeFile(file2)
         val zipFile = tempDirectoryExtension.tempDirectoryPath().resolve("test.zip")
 
         // when
